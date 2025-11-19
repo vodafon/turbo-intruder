@@ -89,7 +89,8 @@ open class Request(val template: String, val words: List<String?>, val learnBori
 
     fun getRequest(): String {
         if (words.isEmpty()) {
-            return fixContentLength(template)
+            // return fixContentLength(template)
+            return template
         }
 
         if (!template.contains("%s")) {
@@ -111,6 +112,9 @@ open class Request(val template: String, val words: List<String?>, val learnBori
     }
 
     fun getRequestAsBytes(): ByteArray {
+        if (words.isEmpty()) {
+          return Utils.stringToBytes(getRequest())
+        }
         return fixContentLength(Utils.stringToBytes(getRequest()))
     }
 
